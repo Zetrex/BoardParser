@@ -97,7 +97,16 @@ namespace BoardParser.WindowsApp
             try
             {
                 if (settings.Page == _siteParserService.GetSiteName())
-                    list = _siteParserService.ParseMainPageAsync().Result;
+                {
+                    var warning = MessageBox.Show($"This operation will take a long time. Do you want to continue?", "Warning", MessageBoxButtons.YesNo);
+                    if (warning == DialogResult.Yes)
+                        list = _siteParserService.ParseMainPageAsync().Result;
+                    else
+                    {
+                        Invoke(new Action(() => startButton.Enabled = true));
+                        return;
+                    }
+                }
                 else
                     list.Add(_siteParserService.ParsePageAsync(settings.Page).Result);
 
