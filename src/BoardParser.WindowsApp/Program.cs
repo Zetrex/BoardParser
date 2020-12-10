@@ -1,3 +1,6 @@
+using BoardParser.Common.Interfaces;
+using BoardParser.Common.Services;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +11,15 @@ namespace BoardParser.WindowsApp
 {
     static class Program
     {
+        public static IServiceProvider ServiceProvider { get; set; }
+
+        static void ConfigureServices()
+        {
+            var services = new ServiceCollection();
+            services.AddTransient<ISiteParserService, RupostingsParserService>();
+            ServiceProvider = services.BuildServiceProvider();
+        }
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -17,6 +29,7 @@ namespace BoardParser.WindowsApp
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            ConfigureServices();
             Application.Run(new MainForm());
         }
     }

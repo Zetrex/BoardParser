@@ -12,7 +12,7 @@ using BoardParser.Common.Interfaces;
 
 namespace BoardParser.Common.Services
 {
-    public class RupostingsParserService : ISiteParser
+    public class RupostingsParserService : ISiteParserService
     {
         private readonly string _siteName = "https://www.rupostings.com";
 

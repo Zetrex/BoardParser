@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BoardParser.Common.Interfaces
 {
-    public interface ISiteParser
+    public interface ISiteParserService
     {
         string GetSiteName();
         Task<List<BoardItem>> ParseMainPageAsync();
