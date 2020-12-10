@@ -1,5 +1,4 @@
 ﻿using BoardParser.Common.Models;
-using BoardParser.Common.Services;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -8,21 +7,13 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using System.Linq;
-using Newtonsoft.Json;
 using System.IO;
+using BoardParser.Common.Interfaces;
 
-namespace BoardParser.Services
+namespace BoardParser.Common.Services
 {
-    class RupostingsParserService : ISiteParser
+    public class RupostingsParserService : ISiteParser
     {
-        // TODO: 
-        // - сортировать по просмотрам
-        // - где нет телефона не сохранять
-        // - парсить телефон по регялрки из текста
-        // - категории парсить из хлебных крошек
-        // - counting errors
-
-
         private readonly string _siteName = "https://www.rupostings.com";
 
         // TODO: get from appsettings
@@ -41,7 +32,7 @@ namespace BoardParser.Services
             return _siteName;
         }
 
-        public async Task<List<BoardItem>> ParceMainPageAsync()
+        public async Task<List<BoardItem>> ParseMainPageAsync()
         {
             var result = new List<BoardItem>();
 
@@ -59,7 +50,7 @@ namespace BoardParser.Services
 
                     foreach (var category in categories)
                     {
-                        var items = await ParceCategoryAsync(category + "?page=1&pageSize=100");
+                        var items = await ParseCategoryAsync(category + "?page=1&pageSize=100");
                         result.AddRange(items);
                     }
                 }
@@ -73,7 +64,7 @@ namespace BoardParser.Services
             return result;
         }
 
-        public async Task<List<BoardItem>> ParceCategoryAsync(string url)
+        public async Task<List<BoardItem>> ParseCategoryAsync(string url)
         {
             var result = new List<BoardItem>();
 
@@ -88,7 +79,7 @@ namespace BoardParser.Services
 
                 foreach (var link in links)
                 {
-                    var item = await ParcePageAsync(link);
+                    var item = await ParsePageAsync(link);
                     if (item != null) result.Add(item);
 
                     if (PAUSES_ENABLED) await Task.Delay(PAUSE_DELAY);
@@ -103,7 +94,7 @@ namespace BoardParser.Services
             return result;
         }
 
-        public async Task<BoardItem> ParcePageAsync(string url)
+        public async Task<BoardItem> ParsePageAsync(string url)
         {
             var item = new BoardItem();
 

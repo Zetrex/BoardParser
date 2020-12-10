@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using BoardParser.Common.Services;
+using BoardParser.Common.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace BoardParser
+namespace BoardParser.ConsoleApp
 {
     public class Worker : BackgroundService
     {
@@ -16,7 +16,7 @@ namespace BoardParser
         private readonly ILogger<Worker> _logger;
 
         public Worker(ISiteParser parser,
-            ILogger<Worker> logger, 
+            ILogger<Worker> logger,
             IConfiguration configuration)
         {
             _parser = parser;

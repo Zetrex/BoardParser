@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BoardParser.Common.Interfaces;
 using BoardParser.Common.Services;
-using BoardParser.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace BoardParser
+namespace BoardParser.ConsoleApp
 {
     public class Program
     {

@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoardParser.Common.Services
+namespace BoardParser.Common.Interfaces
 {
     public interface ISiteParser
     {
         string GetSiteName();
-        Task<List<BoardItem>> ParceMainPageAsync();
-        Task<List<BoardItem>> ParceCategoryAsync(string url);
-        Task<BoardItem> ParcePageAsync(string url);
+        Task<List<BoardItem>> ParseMainPageAsync();
+        Task<List<BoardItem>> ParseCategoryAsync(string url);
+        Task<BoardItem> ParsePageAsync(string url);
     }
 }
