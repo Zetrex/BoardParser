@@ -17,6 +17,7 @@ namespace BoardParser.WindowsApp
         {
             var services = new ServiceCollection();
             services.AddTransient<ISiteParserService, RupostingsParserService>();
+            services.AddTransient<IFileService, FileService>();
             ServiceProvider = services.BuildServiceProvider();
         }
 

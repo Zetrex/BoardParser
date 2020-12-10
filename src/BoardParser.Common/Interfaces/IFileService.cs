@@ -8,8 +8,8 @@ namespace BoardParser.Common.Interfaces
 {
     public interface IFileService
     {
-        Task WriteJson(List<BoardItem> items);
-        Task WriteXml(List<BoardItem> items);
-        Task<List<BoardItem>> ReadFile(string path);
+        Task WriteJson(string path, List<BoardItem> items);
+        Task WriteXml(string path, List<BoardItem> items);
+        Task<List<BoardItem>> ReadFile(string path, string fileName);
     }
 }

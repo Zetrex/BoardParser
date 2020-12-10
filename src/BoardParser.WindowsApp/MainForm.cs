@@ -15,19 +15,21 @@ namespace BoardParser.WindowsApp
     {
         private ParsingSettings _settings;
         private readonly ISiteParserService _siteParserService;
+        private readonly IFileService _fileService;
 
         public MainForm()
         {
             InitializeComponent();
 
             _siteParserService = (ISiteParserService)Program.ServiceProvider.GetService(typeof(ISiteParserService));
+            _fileService = (IFileService)Program.ServiceProvider.GetService(typeof(IFileService));
             _settings = new ParsingSettings();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             pageTextBox.Text = "https://www.rupostings.com/show?id=157534";     // siteRadioButton1.Text;
-            filePathTextBox.Text = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            filePathTextBox.Text = Environment.CurrentDirectory;
 
             InitSettings();
         }
@@ -40,7 +42,7 @@ namespace BoardParser.WindowsApp
                 _settings.SiteName = siteRadioButton2.Text;
 
             _settings.Page = pageTextBox.Text;
-            _settings.ExportFilePath = pageTextBox.Text;
+            _settings.ExportFilePath = filePathTextBox.Text;
 
         }
 
@@ -92,12 +94,23 @@ namespace BoardParser.WindowsApp
 
             List<BoardItem> list = new List<BoardItem>();
 
-            if (settings.Page == _siteParserService.GetSiteName())
-                list = _siteParserService.ParseMainPageAsync().Result;
-            else
-                list.Add(_siteParserService.ParsePageAsync(settings.Page).Result);
+            try
+            {
+                if (settings.Page == _siteParserService.GetSiteName())
+                    list = _siteParserService.ParseMainPageAsync().Result;
+                else
+                    list.Add(_siteParserService.ParsePageAsync(settings.Page).Result);
 
-            MessageBox.Show("Parsing was finished", "Status");
+                _fileService.WriteXml(settings.ExportFilePath, list);
+
+                MessageBox.Show("Parsing was finished", "Status");
+            }
+            catch (Exception ex)
+            {
+                // TODO: add log
+                MessageBox.Show($"Parsing Error: {ex.Message}, StackTrace: {ex.StackTrace}", "Error");
+            }
+
             Invoke(new Action(() => startButton.Enabled = true));
         }
 
