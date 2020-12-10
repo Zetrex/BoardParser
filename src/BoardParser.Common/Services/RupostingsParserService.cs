@@ -305,7 +305,7 @@ namespace BoardParser.Common.Services
                 throw ex;
             }
 
-            return responseBody;
+            return responseBody.Replace("\"", "");
         }
 
     }
