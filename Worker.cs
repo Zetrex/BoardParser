@@ -29,16 +29,22 @@ namespace BoardParser
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                //_logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                // TODO: add config file with types of parsing
+                // TODO: read file with pages
 
-                // cancel operation
-                //cancelTokenSource.Cancel()
+                //await _parser.ParcePageAsync("https://www.rupostings.com/show?id=157534");
+                //var list = await _parser.ParceMainPageAsync();
 
-                //if (stoppingToken.IsCancellationRequested)
-                //{
-                //    _logger.LogInformation("Operation was canseled by token");
-                //    return;
-                //}
+                // TODO: save xml
+
+                Console.WriteLine("Finish");
+                break;
+
+                if (stoppingToken.IsCancellationRequested)
+                {
+                    _logger.LogInformation("Operation was canseled by token");
+                    return;
+                }
 
                 await Task.Delay(1000, stoppingToken);
             }

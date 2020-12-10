@@ -9,6 +9,8 @@ namespace BoardParser.Common.Services
     public interface ISiteParser
     {
         string GetSiteName();
-        Task<BoardItem> ParcePage(string url);
+        Task<List<BoardItem>> ParceMainPageAsync();
+        Task<List<BoardItem>> ParceCategoryAsync(string url);
+        Task<BoardItem> ParcePageAsync(string url);
     }
 }
