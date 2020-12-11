@@ -40,9 +40,12 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.filePathTextBox = new System.Windows.Forms.TextBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.consoleTxtBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // siteRadioButton1
@@ -170,11 +173,31 @@
             this.filePathTextBox.TextChanged += new System.EventHandler(this.filePathTextBox_TextChanged);
             this.filePathTextBox.Leave += new System.EventHandler(this.filePathTextBox_Leave);
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.consoleTxtBox);
+            this.groupBox4.Location = new System.Drawing.Point(418, 12);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(298, 305);
+            this.groupBox4.TabIndex = 6;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Console";
+            // 
+            // consoleTxtBox
+            // 
+            this.consoleTxtBox.Enabled = false;
+            this.consoleTxtBox.Location = new System.Drawing.Point(7, 22);
+            this.consoleTxtBox.Multiline = true;
+            this.consoleTxtBox.Name = "consoleTxtBox";
+            this.consoleTxtBox.Size = new System.Drawing.Size(285, 277);
+            this.consoleTxtBox.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 328);
+            this.ClientSize = new System.Drawing.Size(728, 328);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.progressBar);
@@ -189,6 +212,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -207,5 +232,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox filePathTextBox;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TextBox consoleTxtBox;
     }
 }

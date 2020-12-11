@@ -9,6 +9,7 @@ using HtmlAgilityPack;
 using System.Linq;
 using System.IO;
 using BoardParser.Common.Interfaces;
+using BoardParser.Common.Models.Enums;
 
 namespace BoardParser.Common.Services
 {
@@ -43,16 +44,7 @@ namespace BoardParser.Common.Services
 
                 foreach (var city in citiesLinks)
                 {
-                    var cityHtml = await GetHtmlAsync(city);
-                    var categories = GetCityCategoriesLinks(cityHtml);
-
-                    if (PAUSES_ENABLED) await Task.Delay(PAUSE_DELAY);
-
-                    foreach (var category in categories)
-                    {
-                        var items = await ParseCategoryAsync(category + "?page=1&pageSize=100");
-                        result.AddRange(items);
-                    }
+                    result = await ParsePageWithCategoriesAsync(city);
                 }
 
             }
@@ -63,6 +55,33 @@ namespace BoardParser.Common.Services
 
             return result;
         }
+
+        public async Task<List<BoardItem>> ParsePageWithCategoriesAsync(string url)
+        {
+            var result = new List<BoardItem>();
+
+            try
+            {
+                var cityHtml = await GetHtmlAsync(url);
+                var categories = GetCityCategoriesLinks(cityHtml);
+
+                if (PAUSES_ENABLED) await Task.Delay(PAUSE_DELAY);
+
+                foreach (var category in categories)
+                {
+                    var items = await ParsePageWithCategoriesAsync(category + "?page=1&pageSize=100");
+                    result.AddRange(items);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return result;
+        }
+
 
         public async Task<List<BoardItem>> ParseCategoryAsync(string url)
         {
@@ -92,6 +111,32 @@ namespace BoardParser.Common.Services
             }
 
             return result;
+        }
+
+        public async Task<List<BoardItem>> ParsePageAsync(string url, PageTypes pageType)
+        {
+            var list = new List<BoardItem>();
+
+            switch (pageType)
+            {
+                case PageTypes.MainPage:
+                    list = await ParseMainPageAsync();
+                    break;
+                case PageTypes.PageWithCategories:
+                    list = await ParsePageWithCategoriesAsync(url);
+                    break;
+                case PageTypes.CategoryPage:
+                    list = await ParseCategoryAsync(url);
+                    break;
+                case PageTypes.SinglePage:
+                    var item = await ParsePageAsync(url);
+                    list.Add(item);
+                    break;
+                default:
+                    break;
+            }
+
+            return list;
         }
 
         public async Task<BoardItem> ParsePageAsync(string url)
@@ -308,5 +353,27 @@ namespace BoardParser.Common.Services
             return responseBody.Replace("\"", "");
         }
 
+        public PageTypes GetPageType(string url)
+        {
+            // TODO: add tests
+
+            var regMainPage = @"^http(s)?:\/\/(www.)?rupostings\.com(\/)?$";
+            var matches = Regex.Matches(url, regMainPage);
+            if (matches.Count > 0) return PageTypes.MainPage;
+
+            var regPageWithCategories = @"^http(s)?:\/\/(www.)?rupostings\.com\/[\d\w-]+(\/)?$";
+            matches = Regex.Matches(url, regPageWithCategories);
+            if (matches.Count > 0) return PageTypes.PageWithCategories;
+
+            var regCategoryPage = @"^http(s)?:\/\/(www.)?rupostings\.com(\/[\d\w-]+){2}(\/)?$";
+            matches = Regex.Matches(url, regCategoryPage);
+            if (matches.Count > 0) return PageTypes.CategoryPage;
+
+            var regSinglePage = @"^http(s)?:\/\/(www.)?rupostings\.com\/show\?id=[\d]{1,10}(\/)?$";
+            matches = Regex.Matches(url, regSinglePage);
+            if (matches.Count > 0) return PageTypes.SinglePage;
+
+            return PageTypes.Unknown;
+        }
     }
 }

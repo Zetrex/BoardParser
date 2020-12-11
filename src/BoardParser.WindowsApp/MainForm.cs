@@ -1,9 +1,11 @@
 ﻿using BoardParser.Common.Interfaces;
 using BoardParser.Common.Models;
+using BoardParser.Common.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using System.Threading;
@@ -96,23 +98,32 @@ namespace BoardParser.WindowsApp
 
             try
             {
-                if (settings.Page == _siteParserService.GetSiteName())
+                var pageType = _siteParserService.GetPageType(settings.Page);
+
+                if (pageType == PageTypes.Unknown)
                 {
-                    var warning = MessageBox.Show($"This operation will take a long time. Do you want to continue?", "Warning", MessageBoxButtons.YesNo);
-                    if (warning == DialogResult.Yes)
-                        list = _siteParserService.ParseMainPageAsync().Result;
-                    else
-                    {
-                        Invoke(new Action(() => startButton.Enabled = true));
-                        return;
-                    }
+                    MessageBox.Show($"Unknown page. Please enter url of another page.", "Error");
+                    Invoke(new Action(() => startButton.Enabled = true));
+                    return;
+                }
+
+                list = _siteParserService.ParsePageAsync(settings.Page, pageType).Result;
+
+                if (list == null || list.Count == 0)
+                {
+                    MessageBox.Show($"Empty parsing result", "Status");
+                    Invoke(new Action(() => startButton.Enabled = true));
+                    return;
                 }
                 else
-                    list.Add(_siteParserService.ParsePageAsync(settings.Page).Result);
+                {
+                    var path = _fileService.WriteXml(settings.ExportFilePath, list).Result;
 
-                _fileService.WriteXml(settings.ExportFilePath, list);
+                    var open = MessageBox.Show("Parsing was finished. Open resuls file?", "Status", MessageBoxButtons.YesNo);
 
-                MessageBox.Show("Parsing was finished", "Status");
+                    if (open == DialogResult.Yes)
+                        Process.Start("notepad.exe", path);
+                }
             }
             catch (Exception ex)
             {

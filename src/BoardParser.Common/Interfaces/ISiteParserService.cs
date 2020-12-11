@@ -1,4 +1,5 @@
 ﻿using BoardParser.Common.Models;
+using BoardParser.Common.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,8 +10,7 @@ namespace BoardParser.Common.Interfaces
     public interface ISiteParserService
     {
         string GetSiteName();
-        Task<List<BoardItem>> ParseMainPageAsync();
-        Task<List<BoardItem>> ParseCategoryAsync(string url);
-        Task<BoardItem> ParsePageAsync(string url);
+        PageTypes GetPageType(string url);
+        Task<List<BoardItem>> ParsePageAsync(string url, PageTypes pageType);
     }
 }

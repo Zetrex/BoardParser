@@ -22,20 +22,23 @@ namespace BoardParser.Common.Services
             throw new NotImplementedException();
         }
 
-        public Task WriteJson(string path, List<BoardItem> items)
+        public Task<string> WriteJson(string path, List<BoardItem> items)
         {
             throw new NotImplementedException();
         }
 
-        public async Task WriteXml(string path, List<BoardItem> items)
+        public async Task<string> WriteXml(string path, List<BoardItem> items)
         {
             var xml = GetXml(items);
             var fileName = GetNewFileName();
+            var fullPath = $"{path}\\{fileName}";
 
-            using (StreamWriter file = new StreamWriter($"{path}\\{fileName}"))
+            using (StreamWriter file = new StreamWriter(fullPath))
             {
                 await file.WriteAsync(xml);
             }
+
+            return fullPath;
         }
 
         public string GetXml(List<BoardItem> items)
