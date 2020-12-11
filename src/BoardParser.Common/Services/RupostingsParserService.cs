@@ -23,6 +23,8 @@ namespace BoardParser.Common.Services
         // TODO: get from appsettings
         private readonly int PAUSE_DELAY = 2000;
 
+        public event ISiteParserService.ParserHandler ProcessEvent;
+
         public RupostingsParserService()
         {
 
@@ -33,7 +35,7 @@ namespace BoardParser.Common.Services
             return _siteName;
         }
 
-        public async Task<List<BoardItem>> ParseMainPageAsync()
+        public async Task<List<BoardItem>> ParseMainPageAsync(bool processEnabled = false)
         {
             var result = new List<BoardItem>();
 
@@ -42,9 +44,13 @@ namespace BoardParser.Common.Services
                 var mainPageHtml = await GetHtmlAsync(_siteName);
                 var citiesLinks = GetCitiesLinks(mainPageHtml);
 
+                int index = 0;
                 foreach (var city in citiesLinks)
                 {
-                    result = await ParsePageWithCategoriesAsync(city);
+                    result = await ParsePageWithCategoriesAsync(city, false);
+
+                    index++;
+                    if (processEnabled) ProcessEvent?.Invoke(index, citiesLinks.Count);
                 }
 
             }
@@ -56,7 +62,7 @@ namespace BoardParser.Common.Services
             return result;
         }
 
-        public async Task<List<BoardItem>> ParsePageWithCategoriesAsync(string url)
+        public async Task<List<BoardItem>> ParsePageWithCategoriesAsync(string url, bool processEnabled = false)
         {
             var result = new List<BoardItem>();
 
@@ -67,10 +73,14 @@ namespace BoardParser.Common.Services
 
                 if (PAUSES_ENABLED) await Task.Delay(PAUSE_DELAY);
 
+                int index = 0;
                 foreach (var category in categories)
                 {
-                    var items = await ParsePageWithCategoriesAsync(category + "?page=1&pageSize=100");
+                    var items = await ParseCategoryAsync(category + "?page=1&pageSize=100", false);
                     result.AddRange(items);
+
+                    index++;
+                    if (processEnabled) ProcessEvent?.Invoke(index, categories.Count);
                 }
 
             }
@@ -83,7 +93,7 @@ namespace BoardParser.Common.Services
         }
 
 
-        public async Task<List<BoardItem>> ParseCategoryAsync(string url)
+        public async Task<List<BoardItem>> ParseCategoryAsync(string url, bool processEnabled = false)
         {
             var result = new List<BoardItem>();
 
@@ -96,11 +106,14 @@ namespace BoardParser.Common.Services
 
                 if (PAUSES_ENABLED) await Task.Delay(PAUSE_DELAY);
 
+                int index = 0;
                 foreach (var link in links)
                 {
                     var item = await ParsePageAsync(link);
                     if (item != null) result.Add(item);
 
+                    index++;
+                    if (processEnabled) ProcessEvent?.Invoke(index, links.Count);
                     if (PAUSES_ENABLED) await Task.Delay(PAUSE_DELAY);
                 }
 
@@ -120,13 +133,13 @@ namespace BoardParser.Common.Services
             switch (pageType)
             {
                 case PageTypes.MainPage:
-                    list = await ParseMainPageAsync();
+                    list = await ParseMainPageAsync(true);
                     break;
                 case PageTypes.PageWithCategories:
-                    list = await ParsePageWithCategoriesAsync(url);
+                    list = await ParsePageWithCategoriesAsync(url, true);
                     break;
                 case PageTypes.CategoryPage:
-                    list = await ParseCategoryAsync(url);
+                    list = await ParseCategoryAsync(url, true);
                     break;
                 case PageTypes.SinglePage:
                     var item = await ParsePageAsync(url);

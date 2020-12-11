@@ -9,6 +9,9 @@ namespace BoardParser.Common.Interfaces
 {
     public interface ISiteParserService
     {
+        delegate void ParserHandler(int value, int maxValue);
+        event ParserHandler ProcessEvent;
+
         string GetSiteName();
         PageTypes GetPageType(string url);
         Task<List<BoardItem>> ParsePageAsync(string url, PageTypes pageType);

@@ -107,6 +107,7 @@ namespace BoardParser.WindowsApp
                     return;
                 }
 
+                _siteParserService.ProcessEvent += DisplayProgress;
                 list = _siteParserService.ParsePageAsync(settings.Page, pageType).Result;
 
                 if (list == null || list.Count == 0)
@@ -132,8 +133,13 @@ namespace BoardParser.WindowsApp
             }
 
             Invoke(new Action(() => startButton.Enabled = true));
+            Invoke(new Action(() => progressBar.Value = 0));
         }
 
-
+        private void DisplayProgress(int value, int maxValue)
+        {
+            Invoke(new Action(() => progressBar.Maximum = maxValue));
+            Invoke(new Action(() => progressBar.Value = value));
+        }
     }
 }
