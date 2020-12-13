@@ -32,7 +32,7 @@ namespace BoardParser.WindowsApp
         private void MainForm_Load(object sender, EventArgs e)
         {
             sitesComboBox.SelectedIndex = 0;
-            pageTextBox.Text = "https://www.rupostings.com/show?id=157534";
+            pageTextBox.Text = sitesComboBox.SelectedItem.ToString();
             filePathTextBox.Text = Environment.CurrentDirectory;
             splitNumericUpDown.Value = 20;
 
@@ -41,7 +41,7 @@ namespace BoardParser.WindowsApp
 
         private void InitSettings()
         {
-            _settings.SiteName = sitesComboBox.SelectedText;
+            _settings.SiteName = sitesComboBox.SelectedItem.ToString();
             _settings.Page = pageTextBox.Text;
             _settings.ExportFilePath = filePathTextBox.Text;
             _settings.Split = splitCheckBox.Checked;
@@ -71,6 +71,8 @@ namespace BoardParser.WindowsApp
         private void customPageCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             pageTextBox.Enabled = customPageCheckBox.Checked;
+            if (!pageTextBox.Enabled)
+                pageTextBox.Text = sitesComboBox.SelectedItem.ToString();
         }
         private void filePathTextBox_TextChanged(object sender, EventArgs e)
         {
