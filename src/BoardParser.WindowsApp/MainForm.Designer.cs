@@ -38,6 +38,8 @@
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.startButton = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.splitCheckBox = new System.Windows.Forms.CheckBox();
+            this.splitNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.filePathTextBox = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -45,6 +47,7 @@
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitNumericUpDown)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -128,14 +131,14 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(12, 253);
+            this.progressBar.Location = new System.Drawing.Point(12, 273);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(400, 23);
             this.progressBar.TabIndex = 3;
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(259, 282);
+            this.startButton.Location = new System.Drawing.Point(259, 302);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(153, 35);
             this.startButton.TabIndex = 4;
@@ -145,14 +148,37 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.splitCheckBox);
+            this.groupBox3.Controls.Add(this.splitNumericUpDown);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.filePathTextBox);
             this.groupBox3.Location = new System.Drawing.Point(12, 181);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(400, 66);
+            this.groupBox3.Size = new System.Drawing.Size(400, 86);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Export";
+            // 
+            // splitCheckBox
+            // 
+            this.splitCheckBox.AutoSize = true;
+            this.splitCheckBox.Checked = true;
+            this.splitCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.splitCheckBox.Location = new System.Drawing.Point(6, 54);
+            this.splitCheckBox.Name = "splitCheckBox";
+            this.splitCheckBox.Size = new System.Drawing.Size(86, 19);
+            this.splitCheckBox.TabIndex = 7;
+            this.splitCheckBox.Text = "Split results";
+            this.splitCheckBox.UseVisualStyleBackColor = true;
+            this.splitCheckBox.CheckedChanged += new System.EventHandler(this.splitCheckBox_CheckedChanged);
+            // 
+            // splitNumericUpDown
+            // 
+            this.splitNumericUpDown.Location = new System.Drawing.Point(98, 53);
+            this.splitNumericUpDown.Name = "splitNumericUpDown";
+            this.splitNumericUpDown.Size = new System.Drawing.Size(104, 23);
+            this.splitNumericUpDown.TabIndex = 8;
+            this.splitNumericUpDown.DragLeave += new System.EventHandler(this.splitNumericUpDown_DragLeave);
             // 
             // label1
             // 
@@ -166,9 +192,9 @@
             // filePathTextBox
             // 
             this.filePathTextBox.Enabled = false;
-            this.filePathTextBox.Location = new System.Drawing.Point(67, 25);
+            this.filePathTextBox.Location = new System.Drawing.Point(98, 25);
             this.filePathTextBox.Name = "filePathTextBox";
-            this.filePathTextBox.Size = new System.Drawing.Size(327, 23);
+            this.filePathTextBox.Size = new System.Drawing.Size(296, 23);
             this.filePathTextBox.TabIndex = 1;
             this.filePathTextBox.TextChanged += new System.EventHandler(this.filePathTextBox_TextChanged);
             this.filePathTextBox.Leave += new System.EventHandler(this.filePathTextBox_Leave);
@@ -178,7 +204,7 @@
             this.groupBox4.Controls.Add(this.logsTxtBox);
             this.groupBox4.Location = new System.Drawing.Point(418, 12);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(298, 305);
+            this.groupBox4.Size = new System.Drawing.Size(298, 325);
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Logs";
@@ -189,14 +215,14 @@
             this.logsTxtBox.Location = new System.Drawing.Point(7, 22);
             this.logsTxtBox.Multiline = true;
             this.logsTxtBox.Name = "logsTxtBox";
-            this.logsTxtBox.Size = new System.Drawing.Size(285, 277);
+            this.logsTxtBox.Size = new System.Drawing.Size(285, 297);
             this.logsTxtBox.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(728, 328);
+            this.ClientSize = new System.Drawing.Size(728, 346);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.startButton);
@@ -212,6 +238,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitNumericUpDown)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
@@ -234,5 +261,7 @@
         private System.Windows.Forms.TextBox filePathTextBox;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TextBox logsTxtBox;
+        private System.Windows.Forms.CheckBox splitCheckBox;
+        private System.Windows.Forms.NumericUpDown splitNumericUpDown;
     }
 }

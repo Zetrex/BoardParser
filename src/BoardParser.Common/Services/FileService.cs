@@ -68,7 +68,7 @@ namespace BoardParser.Common.Services
         {
             var xml = GetXml(items);
             var fileName = GetNewFileName();
-            var fullPath = $"{ path}\\{fileName}";
+            var fullPath = $"{ path}\\{fileName}.xml";
 
             using (StreamWriter file = new StreamWriter(fullPath))
             {
@@ -76,6 +76,30 @@ namespace BoardParser.Common.Services
             }
 
             return fullPath;
+        }
+
+        public async Task WriteXmlSeparated(string path, List<BoardItem> items, int amountToSplit)
+        {
+            var fileName = GetNewFileName();
+            int index = 0;
+            for (int i = 0; i < items.Count; i += amountToSplit)
+            {
+                var partOfItems = new List<BoardItem>();
+                for (int j = 0; j < amountToSplit; j++)
+                {
+                    if (amountToSplit + j >= items.Count) break;
+                    partOfItems.Add(items[i + j]);
+
+                    index = j;
+                }
+
+                var fullPath = $"{path}\\{fileName}_{i}-{index + amountToSplit}.xml";
+                var xml = GetXml(partOfItems);
+                using (StreamWriter file = new StreamWriter(fullPath))
+                {
+                    await file.WriteAsync(xml);
+                }
+            }
         }
 
         public string GetXml(List<BoardItem> items)
@@ -100,7 +124,7 @@ namespace BoardParser.Common.Services
             TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1);
             int secondsSinceEpoch = (int)t.TotalSeconds;
 
-            return $"items_{secondsSinceEpoch}.xml";
+            return $"items_{secondsSinceEpoch}";
         }
     }
 }

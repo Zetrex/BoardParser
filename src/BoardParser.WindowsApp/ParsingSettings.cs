@@ -9,5 +9,7 @@ namespace BoardParser.WindowsApp
         public string SiteName { get; set; }
         public string Page { get; set; }
         public string ExportFilePath { get; set; }
+        public bool Split { get; set; }
+        public int AmountToSplit { get; set; }
     }
 }

@@ -33,6 +33,7 @@ namespace BoardParser.WindowsApp
         {
             pageTextBox.Text = "https://www.rupostings.com/show?id=157534";     // siteRadioButton1.Text;
             filePathTextBox.Text = Environment.CurrentDirectory;
+            splitNumericUpDown.Value = 20;
 
             InitSettings();
         }
@@ -46,7 +47,8 @@ namespace BoardParser.WindowsApp
 
             _settings.Page = pageTextBox.Text;
             _settings.ExportFilePath = filePathTextBox.Text;
-
+            _settings.Split = splitCheckBox.Checked;
+            _settings.AmountToSplit = Convert.ToInt32(splitNumericUpDown.Value);
         }
 
         private void siteRadioButton1_CheckedChanged(object sender, EventArgs e)
@@ -81,6 +83,16 @@ namespace BoardParser.WindowsApp
         private void filePathTextBox_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void splitCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            InitSettings();
+        }
+
+        private void splitNumericUpDown_DragLeave(object sender, EventArgs e)
+        {
+            InitSettings();
         }
 
         private void startButton_Click(object sender, EventArgs e)
@@ -140,12 +152,19 @@ namespace BoardParser.WindowsApp
                         return;
                     }
 
-                    var path = _fileService.WriteXml(settings.ExportFilePath, filteredList).Result;
+                    if (settings.Split)
+                    {
+                        _fileService.WriteXmlSeparated(settings.ExportFilePath, filteredList, settings.AmountToSplit);
+                        var open = MessageBox.Show("Parsing was finished.", "Status");
+                    }
+                    else
+                    {
+                        var path = _fileService.WriteXml(settings.ExportFilePath, filteredList).Result;
 
-                    var open = MessageBox.Show("Parsing was finished. Open resuls file?", "Status", MessageBoxButtons.YesNo);
-
-                    if (open == DialogResult.Yes)
-                        Process.Start("notepad.exe", path);
+                        var open = MessageBox.Show("Parsing was finished. Open resuls file?", "Status", MessageBoxButtons.YesNo);
+                        if (open == DialogResult.Yes)
+                            Process.Start("notepad.exe", path);
+                    }
                 }
             }
             catch (Exception ex)
