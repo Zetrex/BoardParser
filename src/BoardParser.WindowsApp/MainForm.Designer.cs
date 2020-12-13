@@ -28,9 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.siteRadioButton1 = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.siteRadioButton2 = new System.Windows.Forms.RadioButton();
+            this.sitesComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pageTextBox = new System.Windows.Forms.TextBox();
@@ -51,48 +50,34 @@
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
-            // siteRadioButton1
-            // 
-            this.siteRadioButton1.AutoSize = true;
-            this.siteRadioButton1.Checked = true;
-            this.siteRadioButton1.Location = new System.Drawing.Point(6, 22);
-            this.siteRadioButton1.Name = "siteRadioButton1";
-            this.siteRadioButton1.Size = new System.Drawing.Size(178, 19);
-            this.siteRadioButton1.TabIndex = 0;
-            this.siteRadioButton1.TabStop = true;
-            this.siteRadioButton1.Text = "https://www.rupostings.com";
-            this.siteRadioButton1.UseVisualStyleBackColor = true;
-            this.siteRadioButton1.CheckedChanged += new System.EventHandler(this.siteRadioButton1_CheckedChanged);
-            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.siteRadioButton2);
-            this.groupBox1.Controls.Add(this.siteRadioButton1);
+            this.groupBox1.Controls.Add(this.sitesComboBox);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(400, 77);
+            this.groupBox1.Size = new System.Drawing.Size(400, 58);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Site";
             // 
-            // siteRadioButton2
+            // sitesComboBox
             // 
-            this.siteRadioButton2.AutoSize = true;
-            this.siteRadioButton2.Enabled = false;
-            this.siteRadioButton2.Location = new System.Drawing.Point(6, 47);
-            this.siteRadioButton2.Name = "siteRadioButton2";
-            this.siteRadioButton2.Size = new System.Drawing.Size(124, 19);
-            this.siteRadioButton2.TabIndex = 1;
-            this.siteRadioButton2.Text = "https://rusrek.com";
-            this.siteRadioButton2.UseVisualStyleBackColor = true;
-            this.siteRadioButton2.CheckedChanged += new System.EventHandler(this.siteRadioButton2_CheckedChanged);
+            this.sitesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.sitesComboBox.FormattingEnabled = true;
+            this.sitesComboBox.Items.AddRange(new object[] {
+            "https://www.rupostings.com/"});
+            this.sitesComboBox.Location = new System.Drawing.Point(8, 22);
+            this.sitesComboBox.Name = "sitesComboBox";
+            this.sitesComboBox.Size = new System.Drawing.Size(386, 23);
+            this.sitesComboBox.TabIndex = 2;
+            this.sitesComboBox.SelectedIndexChanged += new System.EventHandler(this.sitesComboBox_SelectedIndexChanged);
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.pageTextBox);
             this.groupBox2.Controls.Add(this.customPageCheckBox);
-            this.groupBox2.Location = new System.Drawing.Point(12, 95);
+            this.groupBox2.Location = new System.Drawing.Point(12, 76);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(400, 80);
             this.groupBox2.TabIndex = 2;
@@ -131,14 +116,14 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(12, 273);
+            this.progressBar.Location = new System.Drawing.Point(12, 254);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(400, 23);
             this.progressBar.TabIndex = 3;
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(259, 302);
+            this.startButton.Location = new System.Drawing.Point(259, 283);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(153, 35);
             this.startButton.TabIndex = 4;
@@ -152,7 +137,7 @@
             this.groupBox3.Controls.Add(this.splitNumericUpDown);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.filePathTextBox);
-            this.groupBox3.Location = new System.Drawing.Point(12, 181);
+            this.groupBox3.Location = new System.Drawing.Point(12, 162);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(400, 86);
             this.groupBox3.TabIndex = 5;
@@ -204,7 +189,7 @@
             this.groupBox4.Controls.Add(this.logsTxtBox);
             this.groupBox4.Location = new System.Drawing.Point(418, 12);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(298, 325);
+            this.groupBox4.Size = new System.Drawing.Size(298, 306);
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Logs";
@@ -215,14 +200,14 @@
             this.logsTxtBox.Location = new System.Drawing.Point(7, 22);
             this.logsTxtBox.Multiline = true;
             this.logsTxtBox.Name = "logsTxtBox";
-            this.logsTxtBox.Size = new System.Drawing.Size(285, 297);
+            this.logsTxtBox.Size = new System.Drawing.Size(285, 278);
             this.logsTxtBox.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(728, 346);
+            this.ClientSize = new System.Drawing.Size(728, 327);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.startButton);
@@ -233,7 +218,6 @@
             this.Text = "Board Parser";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -246,10 +230,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.RadioButton siteRadioButton1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton siteRadioButton2;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox pageTextBox;
@@ -263,5 +244,6 @@
         private System.Windows.Forms.TextBox logsTxtBox;
         private System.Windows.Forms.CheckBox splitCheckBox;
         private System.Windows.Forms.NumericUpDown splitNumericUpDown;
+        private System.Windows.Forms.ComboBox sitesComboBox;
     }
 }

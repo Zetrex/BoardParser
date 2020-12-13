@@ -31,7 +31,8 @@ namespace BoardParser.WindowsApp
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            pageTextBox.Text = "https://www.rupostings.com/show?id=157534";     // siteRadioButton1.Text;
+            sitesComboBox.SelectedIndex = 0;
+            pageTextBox.Text = "https://www.rupostings.com/show?id=157534";
             filePathTextBox.Text = Environment.CurrentDirectory;
             splitNumericUpDown.Value = 20;
 
@@ -40,23 +41,14 @@ namespace BoardParser.WindowsApp
 
         private void InitSettings()
         {
-            if (siteRadioButton1.Checked)
-                _settings.SiteName = siteRadioButton1.Text;
-            else if (siteRadioButton2.Checked)
-                _settings.SiteName = siteRadioButton2.Text;
-
+            _settings.SiteName = sitesComboBox.SelectedText;
             _settings.Page = pageTextBox.Text;
             _settings.ExportFilePath = filePathTextBox.Text;
             _settings.Split = splitCheckBox.Checked;
             _settings.AmountToSplit = Convert.ToInt32(splitNumericUpDown.Value);
         }
 
-        private void siteRadioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            InitSettings();
-        }
-
-        private void siteRadioButton2_CheckedChanged(object sender, EventArgs e)
+        private void sitesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             InitSettings();
         }
@@ -87,6 +79,7 @@ namespace BoardParser.WindowsApp
 
         private void splitCheckBox_CheckedChanged(object sender, EventArgs e)
         {
+            splitNumericUpDown.Enabled = splitCheckBox.Checked;
             InitSettings();
         }
 
