@@ -169,6 +169,22 @@ namespace BoardParser.Common.Services
 
                 var parentNode = doc.DocumentNode.SelectNodes("//div").FirstOrDefault(x => x.HasClass("obyavl-wrapper"));
 
+                // id
+                var pageId = GetPageId(url);
+                item.Id = Convert.ToInt32(pageId);
+
+                // phone
+                var phoneNode = parentNode.SelectNodes("//a").FirstOrDefault(x => x.GetAttributeValue("id", "") == "phone");
+                if (phoneNode != null)
+                {
+                    item.Phone = await GetPhoneAsync(pageId);
+                }
+                else
+                {
+                    // TODO: !!!
+                    return null;
+                }
+
                 // title
                 item.Title = parentNode.SelectSingleNode("//h1").InnerText;
 
@@ -188,22 +204,6 @@ namespace BoardParser.Common.Services
                 var matches = Regex.Matches(item.Description, regPrice);
                 if (matches.Count > 0)
                     item.Price = matches[0].Groups["Sum"].Value;
-
-                // id
-                var pageId = GetPageId(url);
-                item.Id = Convert.ToInt32(pageId);
-
-                // phone
-                var phoneNode = parentNode.SelectNodes("//a").FirstOrDefault(x => x.GetAttributeValue("id", "") == "phone");
-                if (phoneNode != null)
-                {
-                    item.Phone = await GetPhoneAsync(pageId);
-                }
-                else
-                {
-                    // TODO: !!!
-                    return null;
-                }
 
                 // username
                 var contactNode = parentNode.SelectNodes("//img").FirstOrDefault(x => x.GetAttributeValue("src", "") == "../../Content/images/person-icon.png");
