@@ -13,6 +13,9 @@ namespace BoardParser.Common.Models
             Image = new List<string>();
         }
 
+        [XmlElement("id")]
+        public int Id { get; set; }
+
         [XmlElement("title")]
         public string Title { get; set; }
 

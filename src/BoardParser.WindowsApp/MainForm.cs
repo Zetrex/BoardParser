@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -117,11 +118,29 @@ namespace BoardParser.WindowsApp
                     return;
                 }
                 else
-                {                    
-                    // TODO: check if item already exist
-                    // TODO: save new item ids 
+                {
+                    // check if item already exist
+                    var ids = _fileService.GetIds().Result;
+                    var filteredList = new List<BoardItem>();
+                    foreach (var item in list)
+                    {
+                        if (!ids.Any(x => x == item.Id))
+                            filteredList.Add(item);
+                    }
 
-                    var path = _fileService.WriteXml(settings.ExportFilePath, list).Result;
+                    // save new item ids 
+                    ids.AddRange(filteredList.Select(x => x.Id));
+                    _fileService.SaveIds(ids);
+
+                    // TODO: refactor
+                    if (filteredList == null || filteredList.Count == 0)
+                    {
+                        MessageBox.Show($"Empty parsing result", "Status");
+                        Invoke(new Action(() => startButton.Enabled = true));
+                        return;
+                    }
+
+                    var path = _fileService.WriteXml(settings.ExportFilePath, filteredList).Result;
 
                     var open = MessageBox.Show("Parsing was finished. Open resuls file?", "Status", MessageBoxButtons.YesNo);
 

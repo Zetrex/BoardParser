@@ -11,5 +11,7 @@ namespace BoardParser.Common.Interfaces
         Task<string> WriteJson(string path, List<BoardItem> items);
         Task<string> WriteXml(string path, List<BoardItem> items);
         Task<List<BoardItem>> ReadFile(string path, string fileName);
+        Task<List<int>> GetIds();
+        Task SaveIds(List<int> ids);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BoardParser.Common.Interfaces;
 using BoardParser.Common.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,14 +13,50 @@ namespace BoardParser.Common.Services
 {
     public class FileService : IFileService
     {
+        private readonly string _pathFileWithIds;
+
         public FileService()
         {
-
+            // TODO: getfrom settings
+            _pathFileWithIds = Environment.CurrentDirectory + "\\ids.txt";
         }
 
         public Task<List<BoardItem>> ReadFile(string path, string fileName)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<List<int>> GetIds()
+        {
+            var list = new List<int>();
+
+            try
+            {
+                if (!File.Exists(_pathFileWithIds))
+                    return list;
+
+                using (StreamReader file = new StreamReader(_pathFileWithIds))
+                {
+                    var data = await file.ReadToEndAsync();
+                    list = JsonConvert.DeserializeObject<List<int>>(data);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return list;
+        }
+
+        public async Task SaveIds(List<int> ids)
+        {
+            var json = JsonConvert.SerializeObject(ids.ToArray());
+
+            using (StreamWriter file = new StreamWriter(_pathFileWithIds))
+            {
+                await file.WriteAsync(json);
+            }
         }
 
         public Task<string> WriteJson(string path, List<BoardItem> items)
@@ -31,7 +68,7 @@ namespace BoardParser.Common.Services
         {
             var xml = GetXml(items);
             var fileName = GetNewFileName();
-            var fullPath = $"{path}\\{fileName}";
+            var fullPath = $"{ path}\\{fileName}";
 
             using (StreamWriter file = new StreamWriter(fullPath))
             {
@@ -57,7 +94,7 @@ namespace BoardParser.Common.Services
 
             return xml;
         }
-        
+
         public string GetNewFileName()
         {
             TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1);
@@ -65,6 +102,5 @@ namespace BoardParser.Common.Services
 
             return $"items_{secondsSinceEpoch}.xml";
         }
-
     }
 }

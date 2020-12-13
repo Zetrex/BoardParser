@@ -21,7 +21,7 @@ namespace BoardParser.Common.Services
         private readonly bool PAUSES_ENABLED = true;
 
         // TODO: get from appsettings
-        private readonly int PAUSE_DELAY = 1000;
+        private readonly int PAUSE_DELAY = 100;
 
         public event ISiteParserService.ParserHandler ProcessEvent;
 
@@ -189,11 +189,14 @@ namespace BoardParser.Common.Services
                 if (matches.Count > 0)
                     item.Price = matches[0].Groups["Sum"].Value;
 
+                // id
+                var pageId = GetPageId(url);
+                item.Id = Convert.ToInt32(pageId);
+
                 // phone
                 var phoneNode = parentNode.SelectNodes("//a").FirstOrDefault(x => x.GetAttributeValue("id", "") == "phone");
                 if (phoneNode != null)
                 {
-                    var pageId = GetPageId(url);
                     item.Phone = await GetPhoneAsync(pageId);
                 }
                 else
