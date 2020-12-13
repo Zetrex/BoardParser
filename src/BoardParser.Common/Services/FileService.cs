@@ -51,7 +51,7 @@ namespace BoardParser.Common.Services
                 using (XmlWriter writer = XmlWriter.Create(sww))
                 {
                     xsSubmit.Serialize(writer, items);
-                    xml = sww.ToString();
+                    xml = sww.ToString().Replace("ArrayOfListing", "listings");     // TODO: to fix
                 }
             }
 
