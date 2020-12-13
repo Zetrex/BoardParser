@@ -21,7 +21,7 @@ namespace BoardParser.Common.Services
         private readonly bool PAUSES_ENABLED = true;
 
         // TODO: get from appsettings
-        private readonly int PAUSE_DELAY = 2000;
+        private readonly int PAUSE_DELAY = 1000;
 
         public event ISiteParserService.ParserHandler ProcessEvent;
 
@@ -196,6 +196,11 @@ namespace BoardParser.Common.Services
                     var pageId = GetPageId(url);
                     item.Phone = await GetPhoneAsync(pageId);
                 }
+                else
+                {
+                    // TODO: !!!
+                    return null;
+                }
 
                 // username
                 var contactNode = parentNode.SelectNodes("//img").FirstOrDefault(x => x.GetAttributeValue("src", "") == "../../Content/images/person-icon.png");
@@ -205,11 +210,16 @@ namespace BoardParser.Common.Services
                 // city
                 item.City = parentNode.SelectNodes("//img").FirstOrDefault(x => x.GetAttributeValue("src", "") == "/Content/images/location-icon.png").ParentNode.InnerText.Trim();
 
+                // category
+                item.Category = doc.DocumentNode.SelectNodes("//div[@class=\"breadcrumb-wrap\"]/ol/li/a").LastOrDefault().InnerText;
+
+                // email
+                item.ContactEmail = "beautan@mail.ru";      // TODO: !!!
             }
             catch (Exception ex)
             {
                 return null;
-                throw ex;
+                //throw ex;
             }
 
             return item;

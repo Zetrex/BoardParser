@@ -117,7 +117,10 @@ namespace BoardParser.WindowsApp
                     return;
                 }
                 else
-                {
+                {                    
+                    // TODO: check if item already exist
+                    // TODO: save new item ids 
+
                     var path = _fileService.WriteXml(settings.ExportFilePath, list).Result;
 
                     var open = MessageBox.Show("Parsing was finished. Open resuls file?", "Status", MessageBoxButtons.YesNo);
@@ -140,6 +143,11 @@ namespace BoardParser.WindowsApp
         {
             Invoke(new Action(() => progressBar.Maximum = maxValue));
             Invoke(new Action(() => progressBar.Value = value));
+        }
+
+        private void AddLog(string line)
+        {
+            Invoke(new Action(() => logsTxtBox.AppendText(line + "\r\n")));
         }
     }
 }

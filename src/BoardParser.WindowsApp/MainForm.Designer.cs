@@ -41,7 +41,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.filePathTextBox = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.consoleTxtBox = new System.Windows.Forms.TextBox();
+            this.logsTxtBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -175,22 +175,22 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.consoleTxtBox);
+            this.groupBox4.Controls.Add(this.logsTxtBox);
             this.groupBox4.Location = new System.Drawing.Point(418, 12);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(298, 305);
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Console";
+            this.groupBox4.Text = "Logs";
             // 
-            // consoleTxtBox
+            // logsTxtBox
             // 
-            this.consoleTxtBox.Enabled = false;
-            this.consoleTxtBox.Location = new System.Drawing.Point(7, 22);
-            this.consoleTxtBox.Multiline = true;
-            this.consoleTxtBox.Name = "consoleTxtBox";
-            this.consoleTxtBox.Size = new System.Drawing.Size(285, 277);
-            this.consoleTxtBox.TabIndex = 0;
+            this.logsTxtBox.Enabled = false;
+            this.logsTxtBox.Location = new System.Drawing.Point(7, 22);
+            this.logsTxtBox.Multiline = true;
+            this.logsTxtBox.Name = "logsTxtBox";
+            this.logsTxtBox.Size = new System.Drawing.Size(285, 277);
+            this.logsTxtBox.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -233,6 +233,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox filePathTextBox;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.TextBox consoleTxtBox;
+        private System.Windows.Forms.TextBox logsTxtBox;
     }
 }
