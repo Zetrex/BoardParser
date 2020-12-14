@@ -81,7 +81,6 @@ namespace BoardParser.Common.Services
         public async Task WriteXmlSeparated(string path, List<BoardItem> items, int amountToSplit)
         {
             var fileName = GetNewFileName();
-            int index = 0;
             for (int i = 0; i < items.Count; i += amountToSplit)
             {
                 var partOfItems = new List<BoardItem>();
@@ -89,11 +88,9 @@ namespace BoardParser.Common.Services
                 {
                     if (amountToSplit + j >= items.Count) break;
                     partOfItems.Add(items[i + j]);
-
-                    index = j;
                 }
 
-                var fullPath = $"{path}\\{fileName}_{i}-{index + amountToSplit}.xml";
+                var fullPath = $"{path}\\{fileName}_{i + 1}-{i + amountToSplit}.xml";
                 var xml = GetXml(partOfItems);
                 using (StreamWriter file = new StreamWriter(fullPath))
                 {
