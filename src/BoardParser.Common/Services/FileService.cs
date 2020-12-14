@@ -103,19 +103,26 @@ namespace BoardParser.Common.Services
 
         public string GetXml(List<BoardItem> items)
         {
-            XmlSerializer xsSubmit = new XmlSerializer(typeof(List<BoardItem>));
-            var xml = "";
-
-            using (var sww = new StringWriterWithEncoding())
+            try
             {
-                using (XmlWriter writer = XmlWriter.Create(sww, new XmlWriterSettings() { Encoding= Encoding.UTF8}))
-                {
-                    xsSubmit.Serialize(writer, items);
-                    xml = sww.ToString().Replace("ArrayOfListing", "listings");     // TODO: to fix
-                }
-            }
+                XmlSerializer xsSubmit = new XmlSerializer(items.GetType());
+                var xml = "";
 
-            return xml;
+                using (var sww = new StringWriterWithEncoding())
+                {
+                    using (XmlWriter writer = XmlWriter.Create(sww, new XmlWriterSettings() { Encoding = Encoding.UTF8 }))
+                    {
+                        xsSubmit.Serialize(writer, items);
+                        xml = sww.ToString().Replace("ArrayOfListing", "listings");     // TODO: to fix
+                    }
+                }
+
+                return xml;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public string GetNewFileName()

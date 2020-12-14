@@ -5,25 +5,45 @@ using System.Xml.Serialization;
 
 namespace BoardParser.Common.Models
 {
-    [XmlType("listing")]    
+    [Serializable]
+    public class StringWithLang
+    {
+        [XmlText]
+        public string Text { get; set; }
+
+        [XmlAttribute("lang")]
+        public string Lang { get; set; }
+
+        //public StringWithLang(string lang)
+        //{
+        //    Lang = lang;
+        //}
+    }
+
+    [XmlType("listing")]
     public class BoardItem
     {
         public BoardItem()
         {
             Image = new List<string>();
+
+            var lang = "ru_RU";
+            Title = new StringWithLang();
+            Description = new StringWithLang();
+            Category = new StringWithLang();
         }
 
         [XmlElement("id")]
         public int Id { get; set; }
 
         [XmlElement("title")]
-        public string Title { get; set; }
+        public StringWithLang Title { get; set; }
 
         [XmlElement("content")]
-        public string Description { get; set; }
+        public StringWithLang Description { get; set; }
 
         [XmlElement("category")]
-        public string Category { get; set; }
+        public StringWithLang Category { get; set; }
 
         [XmlElement("contactemail")]
         public string ContactEmail { get; set; }

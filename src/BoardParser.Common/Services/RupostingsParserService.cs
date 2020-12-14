@@ -200,7 +200,7 @@ namespace BoardParser.Common.Services
                 }
 
                 // title
-                item.Title = parentNode.SelectSingleNode("//h1").InnerText;
+                item.Title.Text = parentNode.SelectSingleNode("//h1").InnerText;
 
                 // image
                 // TODO: get all images
@@ -210,12 +210,12 @@ namespace BoardParser.Common.Services
                     item.Image.Add(_siteName + imgBlock.Attributes["data-img"].Value);
 
                 // description
-                item.Description = parentNode.SelectNodes("//div").FirstOrDefault(x => x.HasClass("obyvl-content")).SelectSingleNode("div/div").InnerText.Trim();
+                item.Description.Text = parentNode.SelectNodes("//div").FirstOrDefault(x => x.HasClass("obyvl-content")).SelectSingleNode("div/div").InnerText.Trim();
 
                 // price
                 // TODO: get double prices
                 var regPrice = @"\$(?<Sum>\d+)";
-                var matches = Regex.Matches(item.Description, regPrice);
+                var matches = Regex.Matches(item.Description.Text, regPrice);
                 if (matches.Count > 0)
                     item.Price = matches[0].Groups["Sum"].Value;
 
@@ -228,13 +228,17 @@ namespace BoardParser.Common.Services
                 item.City = parentNode.SelectNodes("//img").FirstOrDefault(x => x.GetAttributeValue("src", "") == "/Content/images/location-icon.png").ParentNode.InnerText.Trim();
 
                 // category
-                item.Category = doc.DocumentNode.SelectNodes("//div[@class=\"breadcrumb-wrap\"]/ol/li/a").LastOrDefault().InnerText;
-                if (_categories.ContainsKey(item.Category))
-                    item.Category = _categories[item.Category];
+                item.Category.Text = doc.DocumentNode.SelectNodes("//div[@class=\"breadcrumb-wrap\"]/ol/li/a").LastOrDefault().InnerText;
+                if (_categories.ContainsKey(item.Category.Text))
+                    item.Category.Text = _categories[item.Category.Text];
 
 
                 // email
                 item.ContactEmail = "oobeautan1@gmail.com";      // TODO: !!!
+
+                item.Category.Lang = "ru_RU";
+                item.Title.Lang = "ru_RU";
+                item.Description.Lang = "ru_RU";
             }
             catch (Exception ex)
             {
