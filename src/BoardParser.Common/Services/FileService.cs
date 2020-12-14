@@ -18,7 +18,7 @@ namespace BoardParser.Common.Services
         public FileService()
         {
             // TODO: getfrom settings
-            _pathFileWithIds = Environment.CurrentDirectory + "\\ids.txt";
+            _pathFileWithIds = Environment.CurrentDirectory + "\\ids.json";
         }
 
         public Task<List<BoardItem>> ReadFile(string path, string fileName)
@@ -84,13 +84,15 @@ namespace BoardParser.Common.Services
             for (int i = 0; i < items.Count; i += amountToSplit)
             {
                 var partOfItems = new List<BoardItem>();
+                int index = 0;
                 for (int j = 0; j < amountToSplit; j++)
                 {
-                    if (amountToSplit + j >= items.Count) break;
+                    if (i + j >= items.Count) break;
                     partOfItems.Add(items[i + j]);
+                    index = j;
                 }
 
-                var fullPath = $"{path}\\{fileName}_{i + 1}-{i + amountToSplit}.xml";
+                var fullPath = $"{path}\\{fileName}_{i + 1}-{i + index + 1}.xml";
                 var xml = GetXml(partOfItems);
                 using (StreamWriter file = new StreamWriter(fullPath))
                 {
@@ -104,9 +106,9 @@ namespace BoardParser.Common.Services
             XmlSerializer xsSubmit = new XmlSerializer(typeof(List<BoardItem>));
             var xml = "";
 
-            using (var sww = new StringWriter())
+            using (var sww = new StringWriterWithEncoding())
             {
-                using (XmlWriter writer = XmlWriter.Create(sww))
+                using (XmlWriter writer = XmlWriter.Create(sww, new XmlWriterSettings() { Encoding= Encoding.UTF8}))
                 {
                     xsSubmit.Serialize(writer, items);
                     xml = sww.ToString().Replace("ArrayOfListing", "listings");     // TODO: to fix
@@ -122,6 +124,23 @@ namespace BoardParser.Common.Services
             int secondsSinceEpoch = (int)t.TotalSeconds;
 
             return $"items_{secondsSinceEpoch}";
+        }
+    }
+
+    public sealed class StringWriterWithEncoding : StringWriter
+    {
+        private readonly Encoding encoding;
+
+        public StringWriterWithEncoding() : this(Encoding.UTF8) { }
+
+        public StringWriterWithEncoding(Encoding encoding)
+        {
+            this.encoding = encoding;
+        }
+
+        public override Encoding Encoding
+        {
+            get { return encoding; }
         }
     }
 }
