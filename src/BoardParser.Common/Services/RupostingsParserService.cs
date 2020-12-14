@@ -157,7 +157,7 @@ namespace BoardParser.Common.Services
                     break;
                 case PageTypes.SinglePage:
                     var item = await ParsePageAsync(url);
-                    list.Add(item);
+                    if (item != null) list.Add(item);
                     break;
                 default:
                     break;
