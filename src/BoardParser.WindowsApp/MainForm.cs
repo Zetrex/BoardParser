@@ -48,50 +48,22 @@ namespace BoardParser.WindowsApp
             _settings.AmountToSplit = Convert.ToInt32(splitNumericUpDown.Value);
         }
 
-        private void sitesComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            InitSettings();
-        }
-
-        private void pageTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pageTextBox_Leave(object sender, EventArgs e)
-        {
-            InitSettings();
-        }
-
-        private void filePathTextBox_Leave(object sender, EventArgs e)
-        {
-            InitSettings();
-        }
-
         private void customPageCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             pageTextBox.Enabled = customPageCheckBox.Checked;
             if (!pageTextBox.Enabled)
                 pageTextBox.Text = sitesComboBox.SelectedItem.ToString();
         }
-        private void filePathTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void splitCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             splitNumericUpDown.Enabled = splitCheckBox.Checked;
-            InitSettings();
-        }
-
-        private void splitNumericUpDown_DragLeave(object sender, EventArgs e)
-        {
-            InitSettings();
         }
 
         private void startButton_Click(object sender, EventArgs e)
         {
+            InitSettings();
+
             Thread x = new Thread(StartParsing);
             x.Start(_settings);
         }

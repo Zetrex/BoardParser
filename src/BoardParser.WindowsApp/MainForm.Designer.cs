@@ -70,7 +70,6 @@
             this.sitesComboBox.Name = "sitesComboBox";
             this.sitesComboBox.Size = new System.Drawing.Size(386, 23);
             this.sitesComboBox.TabIndex = 2;
-            this.sitesComboBox.SelectedIndexChanged += new System.EventHandler(this.sitesComboBox_SelectedIndexChanged);
             // 
             // groupBox2
             // 
@@ -100,8 +99,6 @@
             this.pageTextBox.Name = "pageTextBox";
             this.pageTextBox.Size = new System.Drawing.Size(355, 23);
             this.pageTextBox.TabIndex = 1;
-            this.pageTextBox.TextChanged += new System.EventHandler(this.pageTextBox_TextChanged);
-            this.pageTextBox.Leave += new System.EventHandler(this.pageTextBox_Leave);
             // 
             // customPageCheckBox
             // 
@@ -163,7 +160,6 @@
             this.splitNumericUpDown.Name = "splitNumericUpDown";
             this.splitNumericUpDown.Size = new System.Drawing.Size(104, 23);
             this.splitNumericUpDown.TabIndex = 8;
-            this.splitNumericUpDown.DragLeave += new System.EventHandler(this.splitNumericUpDown_DragLeave);
             // 
             // label1
             // 
@@ -181,8 +177,6 @@
             this.filePathTextBox.Name = "filePathTextBox";
             this.filePathTextBox.Size = new System.Drawing.Size(296, 23);
             this.filePathTextBox.TabIndex = 1;
-            this.filePathTextBox.TextChanged += new System.EventHandler(this.filePathTextBox_TextChanged);
-            this.filePathTextBox.Leave += new System.EventHandler(this.filePathTextBox_Leave);
             // 
             // groupBox4
             // 

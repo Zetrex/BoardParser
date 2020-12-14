@@ -18,7 +18,7 @@ namespace BoardParser.Common.Services
         private readonly string _siteName = "https://www.rupostings.com";
 
         // TODO: get from appsettings
-        private readonly bool PAUSES_ENABLED = true;
+        private readonly bool PAUSES_ENABLED = false;
 
         // TODO: get from appsettings
         private readonly int PAUSE_DELAY = 100;
