@@ -25,6 +25,16 @@ namespace BoardParser.Common.Services
 
         public event ISiteParserService.ParserHandler ProcessEvent;
 
+        // TODO: get from config
+        public Dictionary<string, string> _categories = new Dictionary<string, string>() {
+            {"Работа", "Работа" },
+            {"Ищу работу", "Ищу работу" },
+            {"Сдам жильё", "Недвижимость" },
+            {"Сниму жильё", "Недвижимость" },
+            {"Продам", "Продажа" },
+            {"Услуги", "Услуги" },
+        };
+
         public RupostingsParserService()
         {
 
@@ -215,9 +225,12 @@ namespace BoardParser.Common.Services
 
                 // category
                 item.Category = doc.DocumentNode.SelectNodes("//div[@class=\"breadcrumb-wrap\"]/ol/li/a").LastOrDefault().InnerText;
+                if (_categories.ContainsKey(item.Category))
+                    item.Category = _categories[item.Category];
+
 
                 // email
-                item.ContactEmail = "beautan@mail.ru";      // TODO: !!!
+                item.ContactEmail = "oobeautan1@gmail.com";      // TODO: !!!
             }
             catch (Exception ex)
             {
