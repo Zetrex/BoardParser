@@ -14,6 +14,6 @@ namespace BoardParser.Common.Interfaces
 
         string GetSiteName();
         PageTypes GetPageType(string url);
-        Task<List<BoardItem>> ParsePageAsync(string url, PageTypes pageType);
+        Task<List<BoardItem>> ParsePageAsync(string url, PageTypes pageType, int max = 100);
     }
 }

@@ -11,5 +11,6 @@ namespace BoardParser.WindowsApp
         public string ExportFilePath { get; set; }
         public bool Split { get; set; }
         public int AmountToSplit { get; set; }
+        public int MaxItemsInCategory { get; set; }
     }
 }

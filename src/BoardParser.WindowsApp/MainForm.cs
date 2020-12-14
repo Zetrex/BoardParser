@@ -34,7 +34,7 @@ namespace BoardParser.WindowsApp
             sitesComboBox.SelectedIndex = 0;
             pageTextBox.Text = sitesComboBox.SelectedItem.ToString();
             filePathTextBox.Text = Environment.CurrentDirectory;
-            splitNumericUpDown.Value = 20;
+            //splitNumericUpDown.Value = 20;
 
             InitSettings();
         }
@@ -46,6 +46,7 @@ namespace BoardParser.WindowsApp
             _settings.ExportFilePath = filePathTextBox.Text;
             _settings.Split = splitCheckBox.Checked;
             _settings.AmountToSplit = Convert.ToInt32(splitNumericUpDown.Value);
+            _settings.MaxItemsInCategory = Convert.ToInt32(maxItemsNumericUpDown.Value);
         }
 
         private void customPageCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -88,7 +89,7 @@ namespace BoardParser.WindowsApp
                 }
 
                 _siteParserService.ProcessEvent += DisplayProgress;
-                list = _siteParserService.ParsePageAsync(settings.Page, pageType).Result;
+                list = _siteParserService.ParsePageAsync(settings.Page, pageType, settings.MaxItemsInCategory).Result;
 
                 if (list == null || list.Count == 0)
                 {

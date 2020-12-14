@@ -23,6 +23,8 @@ namespace BoardParser.Common.Services
         // TODO: get from appsettings
         private readonly int PAUSE_DELAY = 100;
 
+        private int _maxItemsInCategory = 100;
+
         public event ISiteParserService.ParserHandler ProcessEvent;
 
         // TODO: get from config
@@ -86,7 +88,7 @@ namespace BoardParser.Common.Services
                 int index = 0;
                 foreach (var category in categories)
                 {
-                    var items = await ParseCategoryAsync(category + "?page=1&pageSize=100", false);
+                    var items = await ParseCategoryAsync(category + $"?page=1&pageSize={_maxItemsInCategory}", false);
                     result.AddRange(items);
 
                     index++;
@@ -109,7 +111,7 @@ namespace BoardParser.Common.Services
 
             try
             {
-                var html = await GetHtmlAsync(url);
+                var html = await GetHtmlAsync(url + $"?page=1&pageSize={_maxItemsInCategory}");
                 if (string.IsNullOrEmpty(html)) return new List<BoardItem>();
 
                 var links = GetCategoryLinks(html);
@@ -136,8 +138,10 @@ namespace BoardParser.Common.Services
             return result;
         }
 
-        public async Task<List<BoardItem>> ParsePageAsync(string url, PageTypes pageType)
+        public async Task<List<BoardItem>> ParsePageAsync(string url, PageTypes pageType, int max = 100)
         {
+            _maxItemsInCategory = max;
+
             var list = new List<BoardItem>();
 
             switch (pageType)

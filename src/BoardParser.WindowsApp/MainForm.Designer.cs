@@ -43,11 +43,14 @@
             this.filePathTextBox = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.logsTxtBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.maxItemsNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitNumericUpDown)).BeginInit();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maxItemsNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -73,12 +76,14 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.maxItemsNumericUpDown);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.pageTextBox);
             this.groupBox2.Controls.Add(this.customPageCheckBox);
             this.groupBox2.Location = new System.Drawing.Point(12, 76);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(400, 80);
+            this.groupBox2.Size = new System.Drawing.Size(400, 87);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Page";
@@ -86,7 +91,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 50);
+            this.label2.Location = new System.Drawing.Point(8, 54);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(25, 15);
             this.label2.TabIndex = 2;
@@ -95,7 +100,7 @@
             // pageTextBox
             // 
             this.pageTextBox.Enabled = false;
-            this.pageTextBox.Location = new System.Drawing.Point(39, 47);
+            this.pageTextBox.Location = new System.Drawing.Point(39, 51);
             this.pageTextBox.Name = "pageTextBox";
             this.pageTextBox.Size = new System.Drawing.Size(355, 23);
             this.pageTextBox.TabIndex = 1;
@@ -113,14 +118,14 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(12, 254);
+            this.progressBar.Location = new System.Drawing.Point(12, 263);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(400, 23);
             this.progressBar.TabIndex = 3;
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(259, 283);
+            this.startButton.Location = new System.Drawing.Point(259, 292);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(153, 35);
             this.startButton.TabIndex = 4;
@@ -134,7 +139,7 @@
             this.groupBox3.Controls.Add(this.splitNumericUpDown);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.filePathTextBox);
-            this.groupBox3.Location = new System.Drawing.Point(12, 162);
+            this.groupBox3.Location = new System.Drawing.Point(12, 171);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(400, 86);
             this.groupBox3.TabIndex = 5;
@@ -160,6 +165,7 @@
             this.splitNumericUpDown.Name = "splitNumericUpDown";
             this.splitNumericUpDown.Size = new System.Drawing.Size(104, 23);
             this.splitNumericUpDown.TabIndex = 8;
+            this.splitNumericUpDown.Value = 20;
             // 
             // label1
             // 
@@ -183,7 +189,7 @@
             this.groupBox4.Controls.Add(this.logsTxtBox);
             this.groupBox4.Location = new System.Drawing.Point(418, 12);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(298, 306);
+            this.groupBox4.Size = new System.Drawing.Size(298, 315);
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Logs";
@@ -194,14 +200,31 @@
             this.logsTxtBox.Location = new System.Drawing.Point(7, 22);
             this.logsTxtBox.Multiline = true;
             this.logsTxtBox.Name = "logsTxtBox";
-            this.logsTxtBox.Size = new System.Drawing.Size(285, 278);
+            this.logsTxtBox.Size = new System.Drawing.Size(285, 287);
             this.logsTxtBox.TabIndex = 0;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(174, 23);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(94, 15);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Max in category:";
+            // 
+            // maxItemsNumericUpDown
+            // 
+            this.maxItemsNumericUpDown.Location = new System.Drawing.Point(274, 21);
+            this.maxItemsNumericUpDown.Name = "maxItemsNumericUpDown";
+            this.maxItemsNumericUpDown.Size = new System.Drawing.Size(120, 23);
+            this.maxItemsNumericUpDown.TabIndex = 3;
+            this.maxItemsNumericUpDown.Value = 100;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(728, 327);
+            this.ClientSize = new System.Drawing.Size(728, 336);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.startButton);
@@ -219,6 +242,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitNumericUpDown)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maxItemsNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -239,5 +263,7 @@
         private System.Windows.Forms.CheckBox splitCheckBox;
         private System.Windows.Forms.NumericUpDown splitNumericUpDown;
         private System.Windows.Forms.ComboBox sitesComboBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown maxItemsNumericUpDown;
     }
 }
