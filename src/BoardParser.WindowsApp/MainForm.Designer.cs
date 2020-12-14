@@ -31,6 +31,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.sitesComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.maxItemsNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.pageTextBox = new System.Windows.Forms.TextBox();
             this.customPageCheckBox = new System.Windows.Forms.CheckBox();
@@ -43,14 +45,13 @@
             this.filePathTextBox = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.logsTxtBox = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.maxItemsNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.duplicatesCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maxItemsNumericUpDown)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitNumericUpDown)).BeginInit();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.maxItemsNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -87,6 +88,22 @@
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Page";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(174, 23);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(94, 15);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Max in category:";
+            // 
+            // maxItemsNumericUpDown
+            // 
+            this.maxItemsNumericUpDown.Location = new System.Drawing.Point(274, 21);
+            this.maxItemsNumericUpDown.Name = "maxItemsNumericUpDown";
+            this.maxItemsNumericUpDown.Size = new System.Drawing.Size(120, 23);
+            this.maxItemsNumericUpDown.TabIndex = 3;
             // 
             // label2
             // 
@@ -135,6 +152,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.duplicatesCheckBox);
             this.groupBox3.Controls.Add(this.splitCheckBox);
             this.groupBox3.Controls.Add(this.splitNumericUpDown);
             this.groupBox3.Controls.Add(this.label1);
@@ -165,7 +183,6 @@
             this.splitNumericUpDown.Name = "splitNumericUpDown";
             this.splitNumericUpDown.Size = new System.Drawing.Size(104, 23);
             this.splitNumericUpDown.TabIndex = 8;
-            this.splitNumericUpDown.Value = 20;
             // 
             // label1
             // 
@@ -203,22 +220,15 @@
             this.logsTxtBox.Size = new System.Drawing.Size(285, 287);
             this.logsTxtBox.TabIndex = 0;
             // 
-            // label3
+            // duplicatesCheckBox
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(174, 23);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(94, 15);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Max in category:";
-            // 
-            // maxItemsNumericUpDown
-            // 
-            this.maxItemsNumericUpDown.Location = new System.Drawing.Point(274, 21);
-            this.maxItemsNumericUpDown.Name = "maxItemsNumericUpDown";
-            this.maxItemsNumericUpDown.Size = new System.Drawing.Size(120, 23);
-            this.maxItemsNumericUpDown.TabIndex = 3;
-            this.maxItemsNumericUpDown.Value = 100;
+            this.duplicatesCheckBox.AutoSize = true;
+            this.duplicatesCheckBox.Location = new System.Drawing.Point(278, 54);
+            this.duplicatesCheckBox.Name = "duplicatesCheckBox";
+            this.duplicatesCheckBox.Size = new System.Drawing.Size(116, 19);
+            this.duplicatesCheckBox.TabIndex = 9;
+            this.duplicatesCheckBox.Text = "Check duplicates";
+            this.duplicatesCheckBox.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -237,12 +247,12 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maxItemsNumericUpDown)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitNumericUpDown)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.maxItemsNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -265,5 +275,6 @@
         private System.Windows.Forms.ComboBox sitesComboBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown maxItemsNumericUpDown;
+        private System.Windows.Forms.CheckBox duplicatesCheckBox;
     }
 }

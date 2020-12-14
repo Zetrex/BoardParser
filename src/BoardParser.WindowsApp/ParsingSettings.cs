@@ -12,5 +12,6 @@ namespace BoardParser.WindowsApp
         public bool Split { get; set; }
         public int AmountToSplit { get; set; }
         public int MaxItemsInCategory { get; set; }
+        public bool CheckDuplicates { get; set; }
     }
 }

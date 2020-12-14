@@ -34,7 +34,8 @@ namespace BoardParser.WindowsApp
             sitesComboBox.SelectedIndex = 0;
             pageTextBox.Text = sitesComboBox.SelectedItem.ToString();
             filePathTextBox.Text = Environment.CurrentDirectory;
-            //splitNumericUpDown.Value = 20;
+            splitNumericUpDown.Value = 20;
+            maxItemsNumericUpDown.Value = 100;
 
             InitSettings();
         }
@@ -47,6 +48,7 @@ namespace BoardParser.WindowsApp
             _settings.Split = splitCheckBox.Checked;
             _settings.AmountToSplit = Convert.ToInt32(splitNumericUpDown.Value);
             _settings.MaxItemsInCategory = Convert.ToInt32(maxItemsNumericUpDown.Value);
+            _settings.CheckDuplicates = duplicatesCheckBox.Checked;
         }
 
         private void customPageCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -100,34 +102,39 @@ namespace BoardParser.WindowsApp
                 else
                 {
                     // check if item already exist
-                    var ids = _fileService.GetIds().Result;
-                    var filteredList = new List<BoardItem>();
-                    foreach (var item in list)
+                    if (settings.CheckDuplicates)
                     {
-                        if (!ids.Any(x => x == item.Id))
-                            filteredList.Add(item);
-                    }
+                        var ids = _fileService.GetIds().Result;
+                        var filteredList = new List<BoardItem>();
+                        foreach (var item in list)
+                        {
+                            if (!ids.Any(x => x == item.Id))
+                                filteredList.Add(item);
+                        }
 
-                    // save new item ids 
-                    ids.AddRange(filteredList.Select(x => x.Id));
-                    _fileService.SaveIds(ids);
+                        // save new item ids 
+                        ids.AddRange(filteredList.Select(x => x.Id));
+                        _fileService.SaveIds(ids);
 
-                    // TODO: refactor
-                    if (filteredList == null || filteredList.Count == 0)
-                    {
-                        MessageBox.Show($"Empty parsing result", "Status");
-                        Invoke(new Action(() => startButton.Enabled = true));
-                        return;
+                        // TODO: refactor
+                        if (filteredList == null || filteredList.Count == 0)
+                        {
+                            MessageBox.Show($"Empty parsing result", "Status");
+                            Invoke(new Action(() => startButton.Enabled = true));
+                            return;
+                        }
+
+                        list = filteredList;
                     }
 
                     if (settings.Split)
                     {
-                        _fileService.WriteXmlSeparated(settings.ExportFilePath, filteredList, settings.AmountToSplit);
+                        _fileService.WriteXmlSeparated(settings.ExportFilePath, list, settings.AmountToSplit);
                         var open = MessageBox.Show("Parsing was finished.", "Status");
                     }
                     else
                     {
-                        var path = _fileService.WriteXml(settings.ExportFilePath, filteredList).Result;
+                        var path = _fileService.WriteXml(settings.ExportFilePath, list).Result;
 
                         var open = MessageBox.Show("Parsing was finished. Open resuls file?", "Status", MessageBoxButtons.YesNo);
                         if (open == DialogResult.Yes)
