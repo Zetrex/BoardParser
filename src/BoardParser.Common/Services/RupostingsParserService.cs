@@ -239,6 +239,8 @@ namespace BoardParser.Common.Services
                 item.Category.Lang = "ru_RU";
                 item.Title.Lang = "ru_RU";
                 item.Description.Lang = "ru_RU";
+
+                item.Currency = "USD";
             }
             catch (Exception ex)
             {
