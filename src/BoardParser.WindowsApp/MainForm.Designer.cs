@@ -39,13 +39,14 @@
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.startButton = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.duplicatesCheckBox = new System.Windows.Forms.CheckBox();
             this.splitCheckBox = new System.Windows.Forms.CheckBox();
             this.splitNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.filePathTextBox = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.logsTxtBox = new System.Windows.Forms.TextBox();
-            this.duplicatesCheckBox = new System.Windows.Forms.CheckBox();
+            this.shuffleCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.maxItemsNumericUpDown)).BeginInit();
@@ -152,6 +153,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.shuffleCheckBox);
             this.groupBox3.Controls.Add(this.duplicatesCheckBox);
             this.groupBox3.Controls.Add(this.splitCheckBox);
             this.groupBox3.Controls.Add(this.splitNumericUpDown);
@@ -164,12 +166,22 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Export";
             // 
+            // duplicatesCheckBox
+            // 
+            this.duplicatesCheckBox.AutoSize = true;
+            this.duplicatesCheckBox.Location = new System.Drawing.Point(278, 57);
+            this.duplicatesCheckBox.Name = "duplicatesCheckBox";
+            this.duplicatesCheckBox.Size = new System.Drawing.Size(116, 19);
+            this.duplicatesCheckBox.TabIndex = 9;
+            this.duplicatesCheckBox.Text = "Check duplicates";
+            this.duplicatesCheckBox.UseVisualStyleBackColor = true;
+            // 
             // splitCheckBox
             // 
             this.splitCheckBox.AutoSize = true;
             this.splitCheckBox.Checked = true;
             this.splitCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.splitCheckBox.Location = new System.Drawing.Point(6, 54);
+            this.splitCheckBox.Location = new System.Drawing.Point(6, 57);
             this.splitCheckBox.Name = "splitCheckBox";
             this.splitCheckBox.Size = new System.Drawing.Size(86, 19);
             this.splitCheckBox.TabIndex = 7;
@@ -181,7 +193,7 @@
             // 
             this.splitNumericUpDown.Location = new System.Drawing.Point(98, 53);
             this.splitNumericUpDown.Name = "splitNumericUpDown";
-            this.splitNumericUpDown.Size = new System.Drawing.Size(104, 23);
+            this.splitNumericUpDown.Size = new System.Drawing.Size(74, 23);
             this.splitNumericUpDown.TabIndex = 8;
             // 
             // label1
@@ -220,15 +232,15 @@
             this.logsTxtBox.Size = new System.Drawing.Size(285, 287);
             this.logsTxtBox.TabIndex = 0;
             // 
-            // duplicatesCheckBox
+            // shuffleCheckBox
             // 
-            this.duplicatesCheckBox.AutoSize = true;
-            this.duplicatesCheckBox.Location = new System.Drawing.Point(278, 54);
-            this.duplicatesCheckBox.Name = "duplicatesCheckBox";
-            this.duplicatesCheckBox.Size = new System.Drawing.Size(116, 19);
-            this.duplicatesCheckBox.TabIndex = 9;
-            this.duplicatesCheckBox.Text = "Check duplicates";
-            this.duplicatesCheckBox.UseVisualStyleBackColor = true;
+            this.shuffleCheckBox.AutoSize = true;
+            this.shuffleCheckBox.Location = new System.Drawing.Point(209, 57);
+            this.shuffleCheckBox.Name = "shuffleCheckBox";
+            this.shuffleCheckBox.Size = new System.Drawing.Size(63, 19);
+            this.shuffleCheckBox.TabIndex = 10;
+            this.shuffleCheckBox.Text = "Shuffle";
+            this.shuffleCheckBox.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -276,5 +288,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown maxItemsNumericUpDown;
         private System.Windows.Forms.CheckBox duplicatesCheckBox;
+        private System.Windows.Forms.CheckBox shuffleCheckBox;
     }
 }

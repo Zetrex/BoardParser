@@ -49,6 +49,7 @@ namespace BoardParser.WindowsApp
             _settings.AmountToSplit = Convert.ToInt32(splitNumericUpDown.Value);
             _settings.MaxItemsInCategory = Convert.ToInt32(maxItemsNumericUpDown.Value);
             _settings.CheckDuplicates = duplicatesCheckBox.Checked;
+            _settings.ShuffleResults = shuffleCheckBox.Checked;
         }
 
         private void customPageCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -77,8 +78,6 @@ namespace BoardParser.WindowsApp
 
             var settings = (ParsingSettings)input;
 
-            List<BoardItem> list = new List<BoardItem>();
-
             try
             {
                 var pageType = _siteParserService.GetPageType(settings.Page);
@@ -91,7 +90,7 @@ namespace BoardParser.WindowsApp
                 }
 
                 _siteParserService.ProcessEvent += DisplayProgress;
-                list = _siteParserService.ParsePageAsync(settings.Page, pageType, settings.MaxItemsInCategory).Result;
+                var list = _siteParserService.ParsePageAsync(settings.Page, pageType, settings.MaxItemsInCategory).Result;
 
                 if (list == null || list.Count == 0)
                 {
@@ -125,6 +124,19 @@ namespace BoardParser.WindowsApp
                         }
 
                         list = filteredList;
+                    }
+
+                    if (settings.ShuffleResults)
+                    {
+                        // TODO: move to separate method
+                        var rand = new Random();
+                        for (int i = list.Count - 1; i >= 1; i--)
+                        {
+                            int j = rand.Next(i + 1);
+                            var temp = list[j];
+                            list[j] = list[i];
+                            list[i] = temp;
+                        }
                     }
 
                     if (settings.Split)
